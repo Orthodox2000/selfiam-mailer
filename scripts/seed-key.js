@@ -1,4 +1,5 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
+const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 const fs = require("fs");
 const path = require("path");
@@ -19,41 +20,38 @@ for (const line of envContent.split("\n")) {
 }
 
 const MONGODB_URI = process.env.MONGODB_URI;
-
-const users = [
-  { email: "selfiam@test.com", password: "Test@12345", role: "USER" },
-];
+const EMAIL = "selfiam@test.com";
 
 async function seed() {
-  if (!MONGODB_URI) {
-    console.error("MONGODB_URI not found");
-    process.exit(1);
-  }
+  if (!MONGODB_URI) { console.error("MONGODB_URI not found"); process.exit(1); }
 
   const client = new MongoClient(MONGODB_URI);
   try {
     await client.connect();
     const db = client.db();
-    const col = db.collection("users");
+    const users = db.collection("users");
+    const keys = db.collection("apikeys");
 
-    for (const u of users) {
-      const existing = await col.findOne({ email: u.email });
-      if (existing) {
-        console.log(`${u.email} already exists (id: ${existing._id}, role: ${existing.role})`);
-        continue;
-      }
-      const password_hash = await bcrypt.hash(u.password, 10);
-      const result = await col.insertOne({
-        email: u.email,
-        password_hash,
-        role: u.role,
-        max_keys: 2,
-        daily_limit: 25,
-        created_at: new Date(),
-        updated_at: new Date(),
-      });
-      console.log(`Created: ${u.email} | role: ${u.role} | pass: ${u.password} | id: ${result.insertedId}`);
-    }
+    const user = await users.findOne({ email: EMAIL });
+    if (!user) { console.error(`User ${EMAIL} not found`); process.exit(1); }
+
+    const raw = "sk_live_" + crypto.randomBytes(24).toString("hex");
+    const key_hash = bcrypt.hashSync(raw, 10);
+    const key_prefix = raw.substring(0, 16) + "...";
+
+    await keys.insertOne({
+      key_hash,
+      key_prefix,
+      user_id: user._id.toString(),
+      name: "Seed Key",
+      is_active: true,
+      daily_limit: null,
+      created_at: new Date(),
+    });
+
+    console.log(`API key created for ${EMAIL}:`);
+    console.log(`  key: ${raw}`);
+    console.log(`  prefix: ${key_prefix}`);
   } finally {
     await client.close();
   }
