@@ -18,6 +18,7 @@ interface UserKey {
   name: string;
   is_active: boolean;
   usage_today: number;
+  daily_limit: number | null;
   created_at: string;
 }
 
@@ -211,7 +212,8 @@ export default function AdminUsersPage() {
                             <th className="px-3 py-2 font-medium text-gray-500">Name</th>
                             <th className="px-3 py-2 font-medium text-gray-500">Key</th>
                             <th className="px-3 py-2 font-medium text-gray-500">Status</th>
-                            <th className="px-3 py-2 font-medium text-gray-500">Used Today</th>
+                            <th className="px-3 py-2 font-medium text-gray-500">Limit</th>
+                            <th className="px-3 py-2 font-medium text-gray-500">Used</th>
                             <th className="px-3 py-2 font-medium text-gray-500">Actions</th>
                           </tr>
                         </thead>
@@ -226,6 +228,9 @@ export default function AdminUsersPage() {
                                 }`}>
                                   {key.is_active ? "Active" : "Revoked"}
                                 </span>
+                              </td>
+                              <td className="px-3 py-2 text-xs text-gray-500">
+                                {key.daily_limit ?? <span className="text-gray-400">default</span>}
                               </td>
                               <td className="px-3 py-2 text-gray-500">{key.usage_today}</td>
                               <td className="px-3 py-2">

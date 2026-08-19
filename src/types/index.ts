@@ -16,6 +16,7 @@ export interface IApiKey {
   user_id: string;
   name: string;
   is_active: boolean;
+  daily_limit: number | null;
   created_at: Date;
 }
 

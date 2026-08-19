@@ -31,7 +31,7 @@ export default function DocsPage() {
               Base URL
             </h3>
             <pre className={CODE_BLOCK + " mt-2"}>
-              https://selfiam.site/api/v1
+              https://mailer.selfiam.site/api/v1
             </pre>
           </div>
         </Section>
@@ -131,7 +131,7 @@ export default function DocsPage() {
             Example Request
           </h3>
           <pre className={CODE_BLOCK + " mt-2"}>
-            {`curl -X POST https://selfiam.site/api/v1/send \\
+            {`curl -X POST https://mailer.selfiam.site/api/v1/send \\
   -H "Authorization: Bearer sk_xxxxxxxxxxxxxxxxxxxx" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -187,7 +187,7 @@ export default function DocsPage() {
             Example Request
           </h3>
           <pre className={CODE_BLOCK + " mt-2"}>
-            {`curl https://selfiam.site/api/v1/keys \\
+            {`curl https://mailer.selfiam.site/api/v1/keys \\
   -H "Authorization: Bearer session_token"`}
           </pre>
 
@@ -248,7 +248,7 @@ export default function DocsPage() {
             Example Request
           </h3>
           <pre className={CODE_BLOCK + " mt-2"}>
-            {`curl -X POST https://selfiam.site/api/v1/keys \\
+            {`curl -X POST https://mailer.selfiam.site/api/v1/keys \\
   -H "Content-Type: application/json" \\
   -d '{ "name": "Production" }'`}
           </pre>
@@ -302,7 +302,7 @@ export default function DocsPage() {
             Example Request
           </h3>
           <pre className={CODE_BLOCK + " mt-2"}>
-            {`curl -X DELETE https://selfiam.site/api/v1/keys/64a1b2c3d4e5f6a7b8c9d0e1`}
+            {`curl -X DELETE https://mailer.selfiam.site/api/v1/keys/64a1b2c3d4e5f6a7b8c9d0e1`}
           </pre>
 
           <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-gray-500">
@@ -331,7 +331,7 @@ export default function DocsPage() {
             Example Request
           </h3>
           <pre className={CODE_BLOCK + " mt-2"}>
-            {`curl https://selfiam.site/api/v1/emails`}
+            {`curl https://mailer.selfiam.site/api/v1/emails`}
           </pre>
 
           <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-gray-500">

@@ -4,6 +4,16 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
+function Logo({ className = "h-7 w-7" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" className={className}>
+      <rect width="32" height="32" rx="8" fill="#000" />
+      <path d="M8 12l8 5 8-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="6" y="10" width="20" height="14" rx="2" stroke="#fff" strokeWidth="2" />
+    </svg>
+  );
+}
+
 export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -26,7 +36,7 @@ export function Navbar() {
     router.refresh();
   }
 
-  const isAdmin = user?.role === "ADMIN" || user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+  const isAdmin = user?.role === "ADMIN";
 
   function navLink(href: string, label: string) {
     const active = pathname === href || pathname.startsWith(href + "/");
@@ -44,8 +54,9 @@ export function Navbar() {
   return (
     <nav className="border-b border-gray-200 bg-white">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-        <Link href="/" className="text-lg font-semibold">
-          SelfIAM Mailer
+        <Link href="/" className="flex items-center gap-2.5">
+          <Logo />
+          <span className="text-lg font-semibold">SelfIAM Mailer</span>
         </Link>
 
         <button className="sm:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
@@ -120,15 +131,60 @@ export function Navbar() {
 export function Footer() {
   return (
     <footer className="border-t border-gray-200 bg-white mt-auto">
-      <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
-        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <p className="text-xs text-gray-400">&copy; {new Date().getFullYear()} SelfIAM Mailer</p>
-          <div className="flex gap-4 text-xs text-gray-400">
-            <Link href="/legal/terms" className="hover:text-gray-600">Terms</Link>
-            <Link href="/legal/privacy" className="hover:text-gray-600">Privacy</Link>
-            <Link href="/legal/eula" className="hover:text-gray-600">EULA</Link>
-            <Link href="/docs" className="hover:text-gray-600">API Docs</Link>
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-4">
+          <div className="sm:col-span-1">
+            <Link href="/" className="flex items-center gap-2">
+              <Logo className="h-6 w-6" />
+              <span className="font-semibold">SelfIAM Mailer</span>
+            </Link>
+            <p className="mt-3 text-sm leading-relaxed text-gray-500">
+              Multi-tenant email API gateway. Send transactional emails with built-in rate limiting and API key management.
+            </p>
           </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900">Product</h3>
+            <ul className="mt-3 space-y-2">
+              <li><Link href="/docs" className="text-sm text-gray-500 hover:text-black">API Documentation</Link></li>
+              <li><Link href="/dashboard" className="text-sm text-gray-500 hover:text-black">Dashboard</Link></li>
+              <li><Link href="/auth/signup" className="text-sm text-gray-500 hover:text-black">Get Started</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900">Legal</h3>
+            <ul className="mt-3 space-y-2">
+              <li><Link href="/legal/terms" className="text-sm text-gray-500 hover:text-black">Terms of Service</Link></li>
+              <li><Link href="/legal/privacy" className="text-sm text-gray-500 hover:text-black">Privacy Policy</Link></li>
+              <li><Link href="/legal/eula" className="text-sm text-gray-500 hover:text-black">EULA</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900">Support</h3>
+            <ul className="mt-3 space-y-2">
+              <li>
+                <a href="mailto:support@selfiam.site" className="text-sm text-gray-500 hover:text-black">
+                  support@selfiam.site
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/your-username/selfiam-mailer" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-500 hover:text-black">
+                  GitHub
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-gray-200 pt-6 sm:flex-row">
+          <p className="text-xs text-gray-400">
+            &copy; {new Date().getFullYear()} SelfIAM. All rights reserved.
+          </p>
+          <p className="text-xs text-gray-400">
+            mailer.selfiam.site
+          </p>
         </div>
       </div>
     </footer>

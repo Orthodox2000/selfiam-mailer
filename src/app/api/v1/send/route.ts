@@ -56,7 +56,7 @@ export async function POST(request: Request) {
       return apiError("USR_001");
     }
 
-    const dailyLimit = user.daily_limit || DAILY_RATE_LIMIT;
+    const dailyLimit = matchedKey.daily_limit ?? user.daily_limit ?? DAILY_RATE_LIMIT;
     const rateResult = await checkRateLimit(matchedKey._id.toString(), dailyLimit);
 
     if (!rateResult.allowed) {

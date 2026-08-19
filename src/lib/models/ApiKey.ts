@@ -7,6 +7,7 @@ const ApiKeySchema = new Schema<IApiKey>({
   user_id: { type: String, required: true, index: true },
   name: { type: String, required: true },
   is_active: { type: Boolean, default: true },
+  daily_limit: { type: Number, default: null },
   created_at: { type: Date, default: Date.now },
 });
 

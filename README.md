@@ -60,7 +60,7 @@ cp .env.local.example .env.local
 | `RESEND_FROM_EMAIL` | Verified sender email address |
 | `DAILY_RATE_LIMIT` | Default emails per day per key (default: 25) |
 | `SUPER_ADMIN_EMAILS` | Comma-separated emails for super admin access |
-| `NEXT_PUBLIC_APP_URL` | App URL (e.g., `http://localhost:3000` or `https://your-domain.vercel.app`) |
+| `NEXT_PUBLIC_APP_URL` | App URL (e.g., `http://localhost:3000` or `https://mailer.selfiam.site`) |
 | `JWT_SECRET` | Random secret for JWT signing (generate with `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"`) |
 
 ### Development
@@ -85,7 +85,7 @@ Or deploy directly to Vercel — all routes are compatible with Vercel's serverl
 ### Send Email
 
 ```bash
-curl -X POST https://your-domain.vercel.app/api/v1/send \
+curl -X POST https://mailer.selfiam.site/api/v1/send \
   -H "Authorization: Bearer sk_live_..." \
   -H "Content-Type: application/json" \
   -d '{

@@ -88,3 +88,17 @@ export function isSuperAdmin(email: string | null): boolean {
     .filter(Boolean);
   return admins.includes(email);
 }
+
+export async function findOrCreateUser(email: string, role: string = "USER") {
+  await connectDB();
+  const normalizedEmail = email.toLowerCase();
+  let user = await User.findOne({ email: normalizedEmail });
+  if (!user) {
+    user = await User.create({ email: normalizedEmail, password_hash: "", role });
+  }
+  if (isSuperAdmin(normalizedEmail) && user.role !== "ADMIN") {
+    user.role = "ADMIN";
+    await user.save();
+  }
+  return { id: user._id.toString(), email: user.email, role: user.role };
+}
