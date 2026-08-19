@@ -147,6 +147,11 @@ export function Footer() {
             <h3 className="text-sm font-semibold text-gray-900">Product</h3>
             <ul className="mt-3 space-y-2">
               <li><Link href="/docs" className="text-sm text-gray-500 hover:text-black">API Documentation</Link></li>
+              <li>
+                <a href="https://www.npmjs.com/package/selfiam-mailer" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-500 hover:text-black">
+                  npm Package
+                </a>
+              </li>
               <li><Link href="/dashboard" className="text-sm text-gray-500 hover:text-black">Dashboard</Link></li>
               <li><Link href="/auth/signup" className="text-sm text-gray-500 hover:text-black">Get Started</Link></li>
             </ul>

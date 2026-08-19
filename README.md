@@ -1,5 +1,8 @@
 # SelfIAM Mailer
 
+[![npm](https://img.shields.io/npm/v/selfiam-mailer?color=blue&label=npm&logo=npm)](https://www.npmjs.com/package/selfiam-mailer)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Multi-tenant email API gateway built with Next.js 16, MongoDB, and Resend. Send transactional emails via a REST API with built-in rate limiting, API key management, and a complete admin dashboard.
 
 ## Features
@@ -31,7 +34,23 @@ Multi-tenant email API gateway built with Next.js 16, MongoDB, and Resend. Send 
 
 ## Getting Started
 
-### Prerequisites
+### Install the SDK
+
+```bash
+npm install selfiam-mailer
+```
+
+```ts
+import { SelfIAMMailer } from "selfiam-mailer";
+
+const mailer = new SelfIAMMailer({ apiKey: "sk_live_YOUR_KEY" });
+const res = await mailer.send({ to: "user@example.com", subject: "Hi", body: "Hello!" });
+console.log(res.emailId, res.rateLimit?.remaining);
+```
+
+[Full SDK docs →](https://www.npmjs.com/package/selfiam-mailer)
+
+### Prerequisites (self-hosted)
 
 - Node.js 18+
 - MongoDB Atlas account (or local MongoDB)

@@ -36,6 +36,92 @@ export default function DocsPage() {
           </div>
         </Section>
 
+        {/* ───────── npm SDK ───────── */}
+        <Section id="sdk" title="npm SDK (selfiam-mailer)">
+          <p>
+            The official Node.js / TypeScript SDK wraps every API endpoint into a
+            typed client. Install it with:
+          </p>
+          <pre className={CODE_BLOCK + " mt-2"}>npm install selfiam-mailer</pre>
+
+          <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-gray-500">
+            Quick Start
+          </h3>
+          <pre className={CODE_BLOCK + " mt-2"}>
+            {`import { SelfIAMMailer } from "selfiam-mailer";
+
+const mailer = new SelfIAMMailer({
+  apiKey: "sk_live_YOUR_API_KEY",
+});
+
+const result = await mailer.send({
+  to: "user@example.com",
+  subject: "Hello!",
+  body: "Sent via the npm SDK.",
+});
+
+console.log(result.emailId);
+console.log(result.rateLimit?.remaining);`}
+          </pre>
+
+          <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-gray-500">
+            Methods
+          </h3>
+          <table className="mt-3 w-full text-sm">
+            <thead>
+              <tr className="border-b border-gray-200 text-left text-gray-500">
+                <th className="pb-2 font-medium">Method</th>
+                <th className="pb-2 font-medium">Description</th>
+              </tr>
+            </thead>
+            <tbody className="text-gray-700">
+              <tr className="border-b border-gray-100">
+                <td className="py-2 font-[family-name:var(--font-geist-mono)] text-xs">send(params)</td>
+                <td className="py-2">Send an email</td>
+              </tr>
+              <tr className="border-b border-gray-100">
+                <td className="py-2 font-[family-name:var(--font-geist-mono)] text-xs">listKeys()</td>
+                <td className="py-2">List API keys</td>
+              </tr>
+              <tr className="border-b border-gray-100">
+                <td className="py-2 font-[family-name:var(--font-geist-mono)] text-xs">createKey(name)</td>
+                <td className="py-2">Create a new API key</td>
+              </tr>
+              <tr className="border-b border-gray-100">
+                <td className="py-2 font-[family-name:var(--font-geist-mono)] text-xs">revokeKey(id)</td>
+                <td className="py-2">Revoke an API key</td>
+              </tr>
+              <tr>
+                <td className="py-2 font-[family-name:var(--font-geist-mono)] text-xs">listEmails()</td>
+                <td className="py-2">List sent emails</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-gray-500">
+            Configuration
+          </h3>
+          <pre className={CODE_BLOCK + " mt-2"}>
+            {`const mailer = new SelfIAMMailer({
+  apiKey: "sk_live_...",          // Required
+  baseUrl: "https://mailer.selfiam.site", // Optional
+  timeout: 30000,                 // Optional (ms)
+});`}
+          </pre>
+
+          <p className="mt-4">
+            Full source &amp; docs:{" "}
+            <a
+              href="https://www.npmjs.com/package/selfiam-mailer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-900 underline underline-offset-2 hover:text-black"
+            >
+              npmjs.com/package/selfiam-mailer
+            </a>
+          </p>
+        </Section>
+
         {/* ───────── Authentication ───────── */}
         <Section id="authentication" title="Authentication">
           <p>
